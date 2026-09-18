@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BookRow from '../components/BookRow.astro';
+
+const all = await getCollection('books');
+const byOrder = (a: CollectionEntry<'books'>, b: CollectionEntry<'books'>) =>
+	a.data.order - b.data.order;
+
+const groups = [
+	{ status: 'reading', title: 'Reading now' },
+	{ status: 'next', title: 'Up next' },
+	{ status: 'finished', title: 'Finished' },
+	{ status: 'paused', title: 'Paused' },
+] as const;
+---
+
+<BaseLayout title="Reading" description="Books Sambhram Shetty is reading and planning to read.">
+	<h1>Reading</h1>
+	<p class="lede">
+		The books moving through my hands right now, and the ones waiting their turn.
+	</p>
+
+	{
+		groups.map((group) => {
+			const books = all.filter((b) => b.data.status === group.status).sort(byOrder);
+			if (books.length === 0) return null;
+			return (
+				<section>
+					<h2>{group.title}</h2>
+					<ul class="list">
+						{books.map((book) => (
+							<BookRow book={book} />
+						))}
+					</ul>
+				</section>
+			);
+		})
+	}
+</BaseLayout>

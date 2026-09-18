@@ -1,0 +1,43 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const hasPortrait = fs.existsSync(path.join(process.cwd(), 'public', 'portrait.jpg'));
+---
+
+<BaseLayout title="About" description="About Sambhram Shetty.">
+	<section class="hero">
+		<div>
+			<h1>About</h1>
+			<p class="lede">
+				I'm Sambhram Shetty — I work on machine learning and spend most of my time
+				thinking about research, systems, and how things actually work under the hood.
+			</p>
+		</div>
+		{
+			hasPortrait ? (
+				<img class="portrait" src="/portrait.jpg" alt="Sambhram Shetty" />
+			) : (
+				<div class="portrait-placeholder" aria-hidden="true">S</div>
+			)
+		}
+	</section>
+
+	<div class="prose">
+		<p>
+			This site is where I keep my writing, my reading list, and a running log of what
+			I'm building. It's less of a résumé and more of a notebook that happens to be public.
+		</p>
+		<p>
+			Right now I'm drawn to making models handle invariants more gracefully, and to
+			general-purpose reinforcement learning inspired by the way systems like AlphaGo
+			learned to play.
+		</p>
+		<h2>Elsewhere</h2>
+		<ul class="list">
+			<li><a href="https://github.com/BosonBomb">GitHub — @BosonBomb</a></li>
+			<li><a href="mailto:sam.shetty@xiphi.ai">sam.shetty@xiphi.ai</a></li>
+		</ul>
+	</div>
+</BaseLayout>

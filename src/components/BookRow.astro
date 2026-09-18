@@ -1,0 +1,40 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	book: CollectionEntry<'books'>;
+}
+
+const { book } = Astro.props;
+
+const labels: Record<string, string> = {
+	reading: 'Reading',
+	next: 'Up next',
+	finished: 'Finished',
+	paused: 'Paused',
+};
+---
+
+<li>
+	<div class="book">
+		<div>
+			<div class="title">
+				{book.data.link ? <a href={book.data.link}>{book.data.title}</a> : book.data.title}
+			</div>
+			<div class="author">
+				{book.data.author}
+				{book.data.rating ? ` · ${'★'.repeat(book.data.rating)}` : ''}
+			</div>
+		</div>
+		<span class={`status ${book.data.status}`}>{labels[book.data.status]}</span>
+	</div>
+	{book.data.note && <p class="book-note">{book.data.note}</p>}
+</li>
+
+<style>
+	.book-note {
+		margin: 8px 0 0;
+		color: var(--muted);
+		font-size: 0.9rem;
+	}
+</style>

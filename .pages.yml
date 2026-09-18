@@ -1,0 +1,109 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: src/content/blog
+    filename:
+      template: "{{ slug }}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: string
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: draft
+        label: Draft
+        type: boolean
+        default: false
+      - name: body
+        label: Body
+        type: rich-text
+
+  - name: books
+    label: Reading list
+    type: collection
+    path: src/content/books
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: author
+        label: Author
+        type: string
+        required: true
+      - name: status
+        label: Status
+        type: select
+        options:
+          values:
+            - reading
+            - next
+            - finished
+            - paused
+        default: next
+      - name: rating
+        label: Rating (1-5)
+        type: number
+      - name: link
+        label: Link
+        type: string
+      - name: note
+        label: Note
+        type: string
+      - name: order
+        label: Sort order
+        type: number
+        default: 0
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: status
+        label: Status
+        type: select
+        options:
+          values:
+            - active
+            - exploring
+            - paused
+            - done
+        default: active
+      - name: summary
+        label: Summary
+        type: string
+        required: true
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: link
+        label: Live link
+        type: string
+      - name: repo
+        label: Source link
+        type: string
+      - name: order
+        label: Sort order
+        type: number
+        default: 0

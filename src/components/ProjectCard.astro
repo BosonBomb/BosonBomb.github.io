@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+
+const labels: Record<string, string> = {
+	active: 'Working on',
+	exploring: 'Exploring',
+	paused: 'Paused',
+	done: 'Shipped',
+};
+---
+
+<article class="card">
+	<div class="meta">
+		<span class={`status ${project.data.status}`}>{labels[project.data.status]}</span>
+	</div>
+	<h3>{project.data.title}</h3>
+	<p>{project.data.summary}</p>
+	{
+		project.data.tags.length > 0 && (
+			<div class="tags">
+				{project.data.tags.map((tag) => (
+					<span class="tag green">{tag}</span>
+				))}
+			</div>
+		)
+	}
+	{
+		(project.data.link || project.data.repo) && (
+			<div class="project-links">
+				{project.data.link && <a href={project.data.link}>Visit ↗</a>}
+				{project.data.repo && <a href={project.data.repo}>Source ↗</a>}
+			</div>
+		)
+	}
+</article>
+
+<style>
+	.meta {
+		margin-bottom: 12px;
+	}
+	.project-links {
+		margin-top: 14px;
+		display: flex;
+		gap: 16px;
+		font-size: 0.9rem;
+	}
+</style>
