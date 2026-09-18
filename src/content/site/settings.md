@@ -1,6 +1,6 @@
 ---
 name: Sambhram Shetty
-heading: Hey
+heading: Hola, Sambhram Here
 intro: I maintain my thoughts and actions here
 about: Explorer
 email: samshettyishere@gmail.com
