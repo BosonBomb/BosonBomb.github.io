@@ -26,6 +26,18 @@ const books = defineCollection({
 	}),
 });
 
+const site = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/site' }),
+	schema: z.object({
+		name: z.string(),
+		heading: z.string(),
+		intro: z.string(),
+		about: z.string(),
+		email: z.string(),
+		github: z.url(),
+	}),
+});
+
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
 	schema: z.object({
@@ -39,4 +51,4 @@ const projects = defineCollection({
 	}),
 });
 
-export const collections = { blog, books, projects };
+export const collections = { blog, books, projects, site };

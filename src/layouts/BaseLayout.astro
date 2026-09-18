@@ -1,4 +1,5 @@
 ---
+import { getEntry } from 'astro:content';
 import '../styles/global.css';
 
 interface Props {
@@ -6,12 +7,16 @@ interface Props {
 	description?: string;
 }
 
+const settings = await getEntry('site', 'settings');
+const siteName = settings?.data.name ?? 'Sambhram Shetty';
+const github = settings?.data.github ?? 'https://github.com/BosonBomb';
+
 const {
 	title,
-	description = 'Sambhram Shetty — notes on research, books, and things I am building.',
+	description = `${siteName} — notes on research, books, and things I am building.`,
 } = Astro.props;
 
-const pageTitle = title ? `${title} · Sambhram Shetty` : 'Sambhram Shetty';
+const pageTitle = title ? `${title} · ${siteName}` : siteName;
 const path = Astro.url.pathname;
 
 const nav = [
@@ -44,7 +49,7 @@ const isCurrent = (href: string) =>
 	<body>
 		<header class="site-header">
 			<div class="wrap wrap-wide">
-				<a class="brand" href="/">Sambhram Shetty</a>
+				<a class="brand" href="/">{siteName}</a>
 				<nav class="nav">
 					{
 						nav.map((item) => (
@@ -65,9 +70,9 @@ const isCurrent = (href: string) =>
 
 		<footer class="site-footer">
 			<div class="wrap wrap-wide">
-				<span>© {new Date().getFullYear()} Sambhram Shetty</span>
+				<span>© {new Date().getFullYear()} {siteName}</span>
 				<span>
-					<a href="https://github.com/BosonBomb">GitHub</a>
+					<a href={github}>GitHub</a>
 					&nbsp;·&nbsp;
 					<a href="/rss.xml">RSS</a>
 				</span>

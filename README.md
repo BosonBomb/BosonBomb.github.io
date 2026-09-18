@@ -14,6 +14,7 @@ All content lives as Markdown in `src/content/`:
 | `src/content/blog/`      | Blog posts                            |
 | `src/content/books/`     | Reading list entries                  |
 | `src/content/projects/`  | Things I'm working on / want to build |
+| `src/content/site/`      | Site settings (name, intro, links)    |
 
 ### The easy way (browser, no setup)
 

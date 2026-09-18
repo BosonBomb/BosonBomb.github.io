@@ -3,6 +3,34 @@ media:
   output: /uploads
 
 content:
+  - name: site
+    label: Site settings
+    type: file
+    path: src/content/site/settings.md
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: heading
+        label: Home heading
+        type: string
+        required: true
+      - name: intro
+        label: Home intro
+        type: text
+        required: true
+      - name: about
+        label: About paragraph
+        type: text
+        required: true
+      - name: email
+        label: Email
+        type: string
+      - name: github
+        label: GitHub URL
+        type: string
+
   - name: blog
     label: Blog posts
     type: collection
