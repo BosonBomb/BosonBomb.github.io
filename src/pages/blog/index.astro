@@ -3,9 +3,13 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.date.valueOf() - a.data.date.valueOf()
-);
+const all = await getCollection('blog', ({ data }) => !data.draft);
+const posts = all
+	.filter(({ data }) => !data.upcoming)
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const upcoming = all
+	.filter(({ data }) => data.upcoming)
+	.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 ---
 
 <BaseLayout title="Writing" description="Essays, notes, and research logs by Sambhram Shetty.">
@@ -20,7 +24,27 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 				))}
 			</div>
 		) : (
-			<p class="empty" style="margin-top:2rem">No posts yet — the first one is coming soon.</p>
+			upcoming.length === 0 && (
+				<p class="empty" style="margin-top:2rem">No posts yet — the first one is coming soon.</p>
+			)
+		)
+	}
+
+	{
+		upcoming.length > 0 && (
+			<>
+				<div class="section-head">
+					<h2>Upcoming</h2>
+				</div>
+				<ul class="list">
+					{upcoming.map((post) => (
+						<li class="book">
+							<span class="title">{post.data.title}</span>
+							<span class="status next">Coming soon</span>
+						</li>
+					))}
+				</ul>
+			</>
 		)
 	}
 </BaseLayout>

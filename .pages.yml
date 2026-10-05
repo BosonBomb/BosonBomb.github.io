@@ -57,6 +57,10 @@ content:
         label: Draft
         type: boolean
         default: false
+      - name: upcoming
+        label: Upcoming
+        type: boolean
+        default: false
       - name: body
         label: Body
         type: rich-text

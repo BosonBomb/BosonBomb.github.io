@@ -10,7 +10,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 const settings = await getEntry('site', 'settings');
 const hasPortrait = fs.existsSync(path.join(process.cwd(), 'public', 'portrait.jpg'));
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
+const posts = (await getCollection('blog', ({ data }) => !data.draft && !data.upcoming))
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 	.slice(0, 3);
 
